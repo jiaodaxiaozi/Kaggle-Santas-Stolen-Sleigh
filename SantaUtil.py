@@ -10,6 +10,7 @@ from gift import Gift
 import random 
 import time
 import pandas as pd
+import operator 
 
 RADIUS_EARTH = 6773
 NORTH_POLE_LAT = 90
@@ -88,7 +89,7 @@ Cost of the trip with the given order of gifts (i.e. A Floating point number)
 def tripCost(gift_list):
     
     gift_size = len(gift_list)
-    initial_gift_weight = tripWeightUtil(0,gift_size-1)
+    initial_gift_weight = tripWeightUtil(gift_list,0,gift_size-1)
     weighted_distance = initial_gift_weight*haversineDistance(NORTH_POLE_LAT,NORTH_POLE_LONG,gift_list[0].latitude,gift_list[0].longitude)
     
     for i in range(gift_size-1):
@@ -215,5 +216,15 @@ def getGiftList(filename):
         gift_list.append(gift)
         
     return gift_list;
+
+"""
+Sorts a given map by the values and returns a list containing th sorted tuples
+"""
+    
+def sortMapByValues(map_to_sort): 
+    
+    sorted_map = sorted(map_to_sort.items(), key=operator.itemgetter(1),reverse=True)
+    return sorted_map
+    
     
         
