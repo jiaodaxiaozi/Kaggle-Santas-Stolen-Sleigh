@@ -220,11 +220,57 @@ def getGiftList(filename):
 """
 Sorts a given map by the values and returns a list containing th sorted tuples
 """
-    
 def sortMapByValues(map_to_sort): 
     
-    sorted_map = sorted(map_to_sort.items(), key=operator.itemgetter(1),reverse=True)
+    sorted_map = sorted(map_to_sort.items(), key=operator.itemgetter(1),reverse=False)
     return sorted_map
+    
+"""
+Sorts the given population by its fitness value
+
+Params:
+-------
+initial_population: List containing the initial population
+
+Returns:
+--------
+List of tuples containing the indices of the initial population and its fitness
+"""
+def sortPopulationByFitness(initial_population):
+    
+    i = 0;
+    fitness_population_map = {} 
+    
+    for trip_gene in initial_population: 
+        fitness_population_map[i] = tripFitness(trip_gene)
+        i = i + 1
+
+    ordered_fitness_list = sortMapByValues(fitness_population_map)
+    
+    return ordered_fitness_list
+"""
+Given all the trips in a list returns the one with the maximum cost and its index
+
+Params:
+---------
+trip_list: List of trips to be taken for delivery
+
+Returns:
+--------
+The trip with the maximum cost and its corresponding index
+"""
+def maximumTripCost(trip_list):
+    index = 0
+    max_trip = trip_list[0] 
+    
+    for i,trip in enumerate(trip_list): 
+        
+        if trip.trip_cost > max_trip:
+            max_trip = trip.trip_cost
+            index = i
+            
+    return index,trip
+
     
     
         
